@@ -1,9 +1,7 @@
-import React, { useState } from "react";
-import { Inter } from "next/font/google";
-import styles from "@/styles/Home.module.css";
+import './App.css'
+import react, { useState } from 'react';
 
-export default function Home() {
-
+function App() {
 
   const [formData, setFormData] = useState({
     name: '',
@@ -21,42 +19,26 @@ export default function Home() {
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    
-    try {
-      const response = await fetch('http://localhost:5000/api/form', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-  
-      if (response.ok) {
-        console.log('Form data sent successfully');
-        // Clear form fields after successful submission
-        setFormData({
-          name: '',
-          email: '',
-          company: '',
-          projectDescription: '',
-          budget: '',
-          deadline: ''
-        });
-      } else {
-        console.error('Failed to send form data');
-      }
-    } catch (error) {
-      console.error('Error sending form data:', error);
-    }
+    // Handle form submission logic here, e.g., sending data to server
+    console.log(formData);
+    // Clear form fields after submission
+    setFormData({
+      name: '',
+      email: '',
+      company: '',
+      projectDescription: '',
+      budget: '',
+      deadline: ''
+    });
   };
-  
+
   return (
     <>
-       <div>
+          <div>
       <h1>I'll make your dream website live</h1>
-      <p>Visit: <a href="https://aniketpatel.me/">aniketpatel.me</a></p>
+      <p>Visit : <a href='https://aniketpatel.me/'>aniketpatel.me</a></p>
       <form onSubmit={handleSubmit}>
         <label>
           Name:
@@ -69,7 +51,7 @@ export default function Home() {
         </label>
         <br />
         <label>
-          About Company:
+          Company details: 
           <input type="text" name="company" value={formData.company} onChange={handleChange} />
         </label>
         <br />
@@ -92,5 +74,7 @@ export default function Home() {
       </form>
     </div>
     </>
-  );
+  )
 }
+
+export default App
