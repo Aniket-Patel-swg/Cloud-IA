@@ -1,23 +1,20 @@
-# Use Node.js base image
-FROM node:16-alpine
+ # Use an existing base image
+ FROM node:alpine
 
-# Set working directory in the container
-WORKDIR /app
+ # Set working directory
+ WORKDIR /app
 
-# Copy package.json and package-lock.json to work directory
-COPY package.json package-lock.json ./
+ # Copy package.json and package-lock.json
+ COPY package*.json ./
 
-# Install dependencies
-RUN npm install
+ # Install dependencies
+ RUN npm install
 
-# Copy the rest of the application code to work directory
-COPY . .
+ # Copy frontend files
+ COPY . .
 
-# Build the Next.js application
-RUN npm run build
+ # Expose port
+ EXPOSE 3000
 
-# Expose port 3000
-EXPOSE 3000
-
-# Command to run the Next.js application
-CMD ["npm", "start"]
+ # Command to run the application
+ CMD ["npm", "start"]
