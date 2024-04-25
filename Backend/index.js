@@ -1,5 +1,4 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
@@ -9,39 +8,14 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-// Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/freelance_clients', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}).then(() => {
-  console.log("MongoDB connected");
-}).catch(err => console.log(err));
-
-// Define Schema
-const formSchema = new mongoose.Schema({
-  name: String,
-  email: String,
-  company: String,
-  projectDescription: String,
-  budget: String,
-  deadline: String
-});
-
-// Define Model
-const Form = mongoose.model('Form', formSchema);
-
 // API Endpoint to handle form submission
-app.post('/api/form', async (req, res) => {
+app.post('/api/form', (req, res) => {
   const formData = req.body;
+  
+  // Log the form data to the console
+  console.log(formData);
 
-  try {
-    const createdForm = await Form.create(formData);
-    console.log("Data saved to database");
-    res.status(200).send("Data saved successfully");
-  } catch (err) {
-    console.log(err);
-    res.status(500).send("Error saving to database");
-  }
+  res.status(200).send("Form data received successfully");
 });
 
 // Start the server

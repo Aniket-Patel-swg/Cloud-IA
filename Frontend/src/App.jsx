@@ -19,20 +19,37 @@ function App() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here, e.g., sending data to server
-    console.log(formData);
-    // Clear form fields after submission
-    setFormData({
-      name: '',
-      email: '',
-      company: '',
-      projectDescription: '',
-      budget: '',
-      deadline: ''
-    });
+    
+    try {
+      const response = await fetch('http://localhost:5000/api/form', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      if (response.ok) {
+        console.log('Form data sent successfully');
+        // Clear form fields after successful submission
+        setFormData({
+          name: '',
+          email: '',
+          company: '',
+          projectDescription: '',
+          budget: '',
+          deadline: ''
+        });
+      } else {
+        console.error('Failed to send form data');
+      }
+    } catch (error) {
+      console.error('Error sending form data:', error);
+    }
   };
+  
 
   return (
     <>
